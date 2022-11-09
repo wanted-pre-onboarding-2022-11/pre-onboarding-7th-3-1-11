@@ -3,12 +3,15 @@ import React, { ChangeEvent, useContext, useMemo, useState } from "react";
 interface KeywordContextState {
   keyword: string;
   handleChangeKeyword: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleSelectKeyword: (keyword: string) => void;
 }
 
 const initialKeywordContextState: KeywordContextState = {
   keyword: "",
-  // eslint-disable-next-line
   handleChangeKeyword(e) {
+    return;
+  },
+  handleSelectKeyword(keyword) {
     return;
   },
 };
@@ -24,12 +27,17 @@ const KeywordContextProvider = ({ children }: { children: React.ReactNode }) => 
     setKeyword(e.target.value);
   };
 
+  const handleSelectKeyword = (keyword: string) => {
+    setKeyword(keyword);
+  };
+
   const contextValue = useMemo(
     () => ({
       keyword,
       handleChangeKeyword,
+      handleSelectKeyword,
     }),
-    [keyword, handleChangeKeyword],
+    [keyword],
   );
 
   return <KeywordContext.Provider value={contextValue}>{children}</KeywordContext.Provider>;

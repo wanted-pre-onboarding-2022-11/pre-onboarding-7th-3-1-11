@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
+import SearchResults from "./components/SearchResults";
 
 function App() {
   const [keyword, setKeyword] = useState("");
@@ -17,6 +18,7 @@ function App() {
         onChange={handleChangeKeyword}
         autoComplete="off"
       />
+      {keyword && <SearchResults keyword={keyword} />}
     </>
   );
 }

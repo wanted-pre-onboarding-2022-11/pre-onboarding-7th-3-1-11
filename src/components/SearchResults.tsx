@@ -15,7 +15,11 @@ const SearchResults = ({ keyword }: SearchResultsProps) => {
   }, []);
 
   useEffect(() => {
-    searchKeyword(keyword);
+    const debounce = setTimeout(() => searchKeyword(keyword), 200);
+
+    return () => {
+      clearTimeout(debounce);
+    };
   }, [keyword]);
 
   return (

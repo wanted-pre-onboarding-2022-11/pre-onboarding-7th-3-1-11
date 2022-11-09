@@ -1,4 +1,5 @@
 import sickApi from "@/api";
+import cacheStore from "@/store";
 import { SickResult } from "@/types";
 import React, { useCallback, useEffect, useState } from "react";
 import BoldText from "./BoldText";
@@ -11,8 +12,13 @@ const SearchResults = ({ keyword }: SearchResultsProps) => {
   const [sickResults, setSickResults] = useState<SickResult[]>([]);
 
   const searchKeyword = useCallback(async (keyword: string) => {
-    const searchedSickResults = await sickApi.search(keyword);
-    setSickResults(searchedSickResults);
+    if (!cacheStore.isCached(keyword)) {
+      const searchedSickResults = await sickApi.search(keyword);
+      setSickResults(searchedSickResults);
+      cacheStore.setData(keyword, searchedSickResults);
+      return;
+    }
+    setSickResults(cacheStore.getData(keyword));
   }, []);
 
   useEffect(() => {

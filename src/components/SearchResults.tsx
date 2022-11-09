@@ -1,6 +1,7 @@
 import sickApi from "@/api";
 import { SickResult } from "@/types";
 import React, { useCallback, useEffect, useState } from "react";
+import BoldText from "./BoldText";
 
 interface SearchResultsProps {
   keyword: string;
@@ -30,7 +31,9 @@ const SearchResults = ({ keyword }: SearchResultsProps) => {
       ) : (
         <ul>
           {sickResults.map((sickResult) => (
-            <li key={sickResult.sickCd}>{sickResult.sickNm}</li>
+            <li key={sickResult.sickCd}>
+              <BoldText text={sickResult.sickNm} keyword={keyword} />
+            </li>
           ))}
         </ul>
       )}

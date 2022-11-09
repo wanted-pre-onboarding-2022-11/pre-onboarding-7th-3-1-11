@@ -1,12 +1,11 @@
-import { getKeyWordResponse } from "@/api/SearchAPI";
-import { useTagIndex } from "@/hooks/useTabIndex";
+import { KeyWordTypes } from "@/types";
 import { formatToBold } from "@/utils/format";
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import AutoCompleteItem from "./AutoCompleteItem";
 
 type AutoCompleteItemProps = {
-  autoCompleteItems: getKeyWordResponse[];
+  autoCompleteItems: KeyWordTypes[];
   debounceValue: string;
   handleKeyTabIndex: (e: KeyboardEvent) => void;
   tabIndex: number;

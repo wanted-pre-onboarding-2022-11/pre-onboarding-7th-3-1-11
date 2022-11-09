@@ -1,14 +1,14 @@
-import { getKeyWordResponse } from "@/api/SearchAPI";
 import { searchAPI } from "@/App";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useTagIndex } from "@/hooks/useTabIndex";
+import { KeyWordTypes } from "@/types";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import styled from "styled-components";
 import AutoCompleteList from "./AutoCompleList";
 
 const Search = () => {
-  const [autoCompleteItems, setAutoCompleteItems] = useState<getKeyWordResponse[]>([]);
+  const [autoCompleteItems, setAutoCompleteItems] = useState<KeyWordTypes[]>([]);
   const [diseaseName, setDiseaseName] = useState("");
   const [isFocus, setIsFocuse] = useState(false);
   const debounceValue = useDebounce(diseaseName, 1000);
@@ -30,8 +30,8 @@ const Search = () => {
 
   useEffect(() => {
     const fetchAutoComplete = async (keyword: string) => {
-      const { data } = await searchAPI.getKeyword(keyword);
-      setAutoCompleteItems(data);
+      const data = await searchAPI.getKeyword(keyword);
+      setAutoCompleteItems(data ?? []);
     };
     if (debounceValue) {
       fetchAutoComplete(debounceValue);

@@ -27,21 +27,18 @@ const SearchResults = () => {
     };
   }, [keyword]);
 
+  if (sickResults.length === 0) {
+    return <div>검색어 없음</div>;
+  }
+
   return (
-    <>
-      <div>현재 키워드 : {keyword}</div>
-      {sickResults.length === 0 ? (
-        <ul>검색어 없음</ul>
-      ) : (
-        <ul>
-          {sickResults.map((sickResult) => (
-            <li key={sickResult.sickCd}>
-              <BoldText text={sickResult.sickNm} keyword={keyword} />
-            </li>
-          ))}
-        </ul>
-      )}
-    </>
+    <ul>
+      {sickResults.map((sickResult) => (
+        <li key={sickResult.sickCd}>
+          <BoldText text={sickResult.sickNm} keyword={keyword} />
+        </li>
+      ))}
+    </ul>
   );
 };
 

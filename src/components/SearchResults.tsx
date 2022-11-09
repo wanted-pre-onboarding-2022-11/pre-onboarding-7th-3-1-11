@@ -1,14 +1,12 @@
 import sickApi from "@/api";
+import { useKeyword } from "@/contexts/keyword";
 import cacheStore from "@/store";
 import { SickResult } from "@/types";
 import React, { useCallback, useEffect, useState } from "react";
 import BoldText from "./BoldText";
 
-interface SearchResultsProps {
-  keyword: string;
-}
-
-const SearchResults = ({ keyword }: SearchResultsProps) => {
+const SearchResults = () => {
+  const { keyword } = useKeyword();
   const [sickResults, setSickResults] = useState<SickResult[]>([]);
 
   const searchKeyword = useCallback(async (keyword: string) => {

@@ -1,12 +1,9 @@
-import React, { ChangeEvent, useState } from "react";
+import React from "react";
 import SearchResults from "./components/SearchResults";
+import { useKeyword } from "./contexts/keyword";
 
 function App() {
-  const [keyword, setKeyword] = useState("");
-
-  const handleChangeKeyword = (e: ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.currentTarget.value);
-  };
+  const { keyword, handleChangeKeyword } = useKeyword();
 
   return (
     <>
@@ -18,7 +15,7 @@ function App() {
         onChange={handleChangeKeyword}
         autoComplete="off"
       />
-      {keyword && <SearchResults keyword={keyword} />}
+      {keyword && <SearchResults />}
     </>
   );
 }

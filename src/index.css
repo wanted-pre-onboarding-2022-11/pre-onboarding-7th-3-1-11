@@ -15,3 +15,8 @@ div {
   all: unset;
   box-sizing: border-box;
 }
+
+ul,
+li {
+  all: unset;
+}

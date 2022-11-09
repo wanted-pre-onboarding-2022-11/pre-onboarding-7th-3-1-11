@@ -1,22 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 
-const AutoCompleteItem = ({ item, isSelected }: { item: string[]; isSelected: boolean }) => {
-  console.log(isSelected);
-  const [str1, key, str2] = item;
+type AutoCompleteItemProps = {
+  item: string[];
+  isSelected: boolean;
+};
+const AutoCompleteItem = ({ item, isSelected }: AutoCompleteItemProps) => {
+  const [splitedStrLeft, key, splitedStrRight] = item;
   return (
     <StyledAutoItem isSelected={isSelected}>
       <p>
-        {str1}
+        {splitedStrLeft}
         <b>{key}</b>
-        {str2}
+        {splitedStrRight}
       </p>
     </StyledAutoItem>
   );
 };
 
-export default AutoCompleteItem;
 const StyledAutoItem = styled.li<{ isSelected: boolean }>`
-  all: unset;
-  color: ${({ isSelected }) => (isSelected ? "blue" : "gray")};
+  padding: 0 0.5rem;
+  background-color: ${({ isSelected }) => (isSelected ? "#e6e7e792" : "#fff")};
 `;
+
+export default React.memo(AutoCompleteItem);

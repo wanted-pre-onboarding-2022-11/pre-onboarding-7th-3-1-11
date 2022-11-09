@@ -1,7 +1,12 @@
 import React from "react";
+import SearchPage from "./pages/searchPage";
 
 function App() {
-  return <h1>Hello typescript react!</h1>;
+  return (
+    <>
+      <SearchPage />
+    </>
+  );
 }
 
 export default App;

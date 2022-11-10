@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { sickAPI } from "@/apis/api";
+import axios from "axios";
 
 export type Sick = { sickCd: string; sickNm: string };
 
 export interface SickState {
   data: Sick[];
-  cache: any;
-  error: null | string;
+  cache: { [query: string]: Sick[] };
+  error: unknown;
 }
 
 const initialState: SickState = {
@@ -21,7 +22,9 @@ export const __getSickList = createAsyncThunk("/getSickList", async (value: stri
     console.info("calling api");
     return thunkAPI.fulfillWithValue({ data, query: value });
   } catch (error) {
-    return thunkAPI.rejectWithValue(error);
+    if (axios.isAxiosError(error)) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
   }
 });
 
@@ -37,11 +40,11 @@ export const sickSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(__getSickList.fulfilled, (state: any, action: any) => {
+    builder.addCase(__getSickList.fulfilled, (state: SickState, action: any) => {
       state.data = action.payload.data;
       state.cache = { ...state.cache, [action.payload.query]: action.payload.data };
     });
-    builder.addCase(__getSickList.rejected, (state: any, action) => {
+    builder.addCase(__getSickList.rejected, (state: SickState, action) => {
       state.error = action.payload;
     });
   },

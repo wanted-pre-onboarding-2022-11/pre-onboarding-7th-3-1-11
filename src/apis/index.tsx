@@ -22,5 +22,6 @@ const fetchAutoCompletedList = (keyword: string) =>
     })
     .then((response) => {
       cacheData({ keyword, data: response?.data || [] });
+      console.info("calling api");
       return response;
     });

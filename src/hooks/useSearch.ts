@@ -5,11 +5,11 @@ import debounce from "@/utils/debounce";
 
 type FetchResult<T> = Promise<AxiosResponse<T[]> | { keyword: string; data: T[] }>;
 
+const DELAY_TIME = 500;
+
 const useSearch = <T>(search: (keyword: string) => FetchResult<T>) => {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [searchResult, setSearchResult] = useState<T[]>([]);
-
-  const DELAY_TIME = 300;
 
   const saveKeyword = debounce<string, void>(
     (keyword: string) => setSearchKeyword(keyword),

@@ -1,7 +1,8 @@
 import React from "react";
+import Main from "./page/Main";
 
-function App() {
-  return <h1>Hello typescript react!</h1>;
-}
+const App = () => {
+  return <Main />;
+};
 
 export default App;

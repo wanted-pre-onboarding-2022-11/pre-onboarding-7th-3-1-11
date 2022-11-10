@@ -9,6 +9,7 @@ const useDropdown = () => {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line
     const onClick = (event: any) => {
       if (dropRef.current && !dropRef.current.contains(event.target)) {
         setIsOpen((prev) => !prev);

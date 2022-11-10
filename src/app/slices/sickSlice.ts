@@ -40,6 +40,7 @@ export const sickSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    // eslint-disable-next-line
     builder.addCase(__getSickList.fulfilled, (state: SickState, action: any) => {
       state.data = action.payload.data;
       state.cache = { ...state.cache, [action.payload.query]: action.payload.data };

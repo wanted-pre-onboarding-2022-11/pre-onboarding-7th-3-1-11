@@ -1,16 +1,12 @@
-//key 가 있느지 확인
+import type { SickInfoTypes } from "@/types";
 
-import type { KeyWordTypes } from "@/types";
-
-// key가 없으면 set해주는함수
-// key를 get
 export class Cache {
   private cache;
   constructor() {
-    this.cache = new Map<string, KeyWordTypes[]>();
+    this.cache = new Map<string, SickInfoTypes[]>();
   }
 
-  setCache(key: string, value: KeyWordTypes[]) {
+  setCache(key: string, value: SickInfoTypes[]) {
     this.cache.set(key, value);
   }
   getCache(key: string) {

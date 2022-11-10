@@ -1,8 +1,4 @@
-export type KeyWordTypes = {
+export type SickInfoTypes = {
   sickCd: string;
   sickNm: string;
-};
-
-export type KeyWordDataTypes = {
-  data: KeyWordDataTypes[];
 };

@@ -1,31 +1,31 @@
 import { searchAPI } from "@/App";
 import { useDebounce } from "@/hooks/useDebounce";
+import { useInput } from "@/hooks/useInput";
 import { useTagIndex } from "@/hooks/useTabIndex";
-import { KeyWordTypes } from "@/types";
+import { SickInfoTypes } from "@/types";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import styled from "styled-components";
 import AutoCompleteList from "./AutoCompleList";
 
 const Search = () => {
-  const [autoCompleteItems, setAutoCompleteItems] = useState<KeyWordTypes[]>([]);
-  const [diseaseName, setDiseaseName] = useState("");
-  const [isFocus, setIsFocuse] = useState(false);
+  const [autoCompleteItems, setAutoCompleteItems] = useState<SickInfoTypes[]>([]);
+  const {
+    inputAttribute: { value: diseaseName, onChangeInput, isFocus, onFocusInput, onBlurInput },
+  } = useInput("");
+  const { tabIndex, initTabIndex, handleKeyTabIndex } = useTagIndex(autoCompleteItems.length);
   const debounceValue = useDebounce(diseaseName, 1000);
 
-  const { tabIndex, initTabIndex, handleKeyTabIndex } = useTagIndex(autoCompleteItems.length);
-
-  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDiseaseName(e.currentTarget.value);
-  };
-
-  const onFocusInput = () => {
-    setIsFocuse(true);
-  };
-
-  const onBlurInput = () => {
-    setIsFocuse(false);
+  const onBlurInputCustom = () => {
+    onBlurInput();
     initTabIndex();
+  };
+
+  const onSubmitInput = (
+    e: React.FormEvent<HTMLFormElement> | React.FormEvent<HTMLInputElement>,
+  ) => {
+    e.preventDefault();
+    alert(autoCompleteItems[tabIndex].sickNm);
   };
 
   useEffect(() => {
@@ -43,13 +43,16 @@ const Search = () => {
       <h3>국내 모든 임상시험 검색하고 온라인으로 참여하기</h3>
       <S.Search>
         <S.SearchContainer>
-          <input
-            placeholder="질환명을 입력해 주세요."
-            value={diseaseName}
-            onChange={onChangeInput}
-            onFocus={onFocusInput}
-            onBlur={onBlurInput}
-          />
+          <form onSubmit={onSubmitInput}>
+            <input
+              placeholder="질환명을 입력해 주세요."
+              value={diseaseName}
+              onChange={onChangeInput}
+              onFocus={onFocusInput}
+              onBlur={onBlurInputCustom}
+              onSubmit={onSubmitInput}
+            />
+          </form>
         </S.SearchContainer>
         {isFocus ? (
           <AutoCompleteList

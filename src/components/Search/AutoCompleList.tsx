@@ -1,15 +1,16 @@
-import { KeyWordTypes } from "@/types";
+import { SickInfoTypes } from "@/types";
 import { formatToBold } from "@/utils/format";
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import AutoCompleteItem from "./AutoCompleteItem";
 
 type AutoCompleteItemProps = {
-  autoCompleteItems: KeyWordTypes[];
+  autoCompleteItems: SickInfoTypes[];
   debounceValue: string;
   handleKeyTabIndex: (e: KeyboardEvent) => void;
   tabIndex: number;
 };
+
 const AutoCompleteList = ({
   tabIndex,
   handleKeyTabIndex,
@@ -20,7 +21,6 @@ const AutoCompleteList = ({
     window.addEventListener("keydown", handleKeyTabIndex);
     return () => window.removeEventListener("keydown", handleKeyTabIndex);
   });
-
   return (
     <S.Container>
       <h5>추천검색어</h5>
@@ -41,7 +41,7 @@ const S = {
   Container: styled.div`
     background-color: #fff;
     border-radius: 20px;
-    padding: 0 1rem;
+    padding: 1rem 1rem;
   `,
   AutoCompleteContainer: styled.ul`
     display: flex;

@@ -17,7 +17,7 @@ const useSearch = <T>(search: (keyword: string) => FetchResult<T>) => {
   );
 
   useEffect(() => {
-    if (!searchKeyword) {
+    if (!searchKeyword || searchKeyword?.replace(" ", "").length === 0) {
       setSearchResult([]);
       return;
     }

@@ -3,7 +3,7 @@ interface AutoCompletedItemProps {
   completedWord: string;
 }
 
-const AutoCompletedItem = ({ keyword, completedWord }: AutoCompletedItemProps) => {
+const AutoCompletedItem = ({ completedWord }: AutoCompletedItemProps) => {
   return <span>{completedWord}</span>;
 };
 

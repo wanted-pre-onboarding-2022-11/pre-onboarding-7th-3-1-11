@@ -141,20 +141,60 @@
 
 ### 1. 사용자가 입력한 텍스트와 일치하는 부분 볼드처리
 
-1.  정규식을 이용해 사용자가 입력한 텍스트 앞,뒤로 flag를 넣어줍니다.
-2.  해당 flag를 기준으로 split 한 후 split 할때 두번째 인자인 limit을 3개로 지정하여 나온 값의 가운데 값이 해당 keyword로 볼드 처리합니다.
+1.  정규식을 이용해 사용자가 입력한 텍스트 앞,뒤로 flag를 넣어준다.
+2.  해당 flag를 기준으로 split 한다.(두번째 인자인 limit을 3개로 지정) split 할때 나온 값의 가운데 값이 해당 keyword로 볼드 처리한다.
+
+```javascript
+export const boldFlagMaker = ({ key, item }: { key: string, item: string }) => {
+  return item.replace(new RegExp(key, "i"), `${SPLIT_FLAG}${key}${SPLIT_FLAG}`);
+};
+
+export const formatToBold = ({ list, key }: { list: SickInfoTypes[], key: string }) => {
+  const boldList = list.map((item) => boldFlagMaker({ key, item: item.sickNm }));
+  return boldList.map((boldStr) => {
+    return boldStr.split(SPLIT_FLAG, 3);
+  });
+};
+
+//컴포넌트에서 사용 시
+const [splitedLeftText, boldText, splitedRightText] = item;
+return (
+  <StyledAutoItem isSelected={isSelected}>
+    <p>
+      {splitedLeftText}
+      <b>{boldText}</b>
+      {splitedRightText}
+    </p>
+  </StyledAutoItem>
+);
+```
 
 ### 2. API 호출 최적화(캐싱기능)
 
 - 로컬 캐싱
-  API class, Cache class를 만들어 API 인스턴스 생성 시 Cache를 의존성으로 주입받습니다.
+
+  API class, Cache class를 만들어 API 인스턴스 생성 시 baseURL과 Cache를 의존성으로 주입 받습니다. Cache를 다른 방법을 이용하여 관리할 수도 있기때문에 관리하기 용이하게 해당 부분은 의존성을 주입 받게 구현 하였습니다.
+
+  ```javascript
+  const cahceInstace = new CacheService();
+  export const searchAPI = new SearchAPI("http://localhost:4000/", cahceInstace);
+  ```
+
   API 내부변수인 cache에는 set, get 함수가 구현되어 있고 API 호출을 진행하면
 
-  - 1. Cache에 해당하는 key 값이 있는지 확인합니다.
-  - 2. Cache에 해당하는 값이 있다면 해당 값을 사용합니다.
-  - 3. Cache에 해당하는 값이 없다면 API 호출 후 Cache에 해당 key 값으로 value를 저장합니다.
+  - 1. Cache에 해당하는 key 값이 있는지 확인한다
+  - 2. Cache에 해당하는 값이 있다면 해당 값을 사용한다
+  - 3. Cache에 해당하는 값이 없다면 API 호출 후 Cache에 해당 key 값으로 value를 저장한다.
+
+- Cache class 내부에는 Map 객체를 이용하여 key값을 기준으로 캐싱된 데이터를 저장 합니다.
+
+  **Map 객체를 사용한 이유?**
+
+  - 데이터 정보 조회가 빈번할때는 Map 객체가 순서가 보장 되기 때문에 데이터 조회 시 Object보다 Map 이 더 나은 성능을 갖는다.
+  - has, set, get 등 이미 구현되어 있는 함수를 이용해 key를 기준으로 값을 쉽게 가져올 수 있다.
 
 ```javascript
+
 import type { SickInfoTypes } from "@/types";
 
 export class CacheService {
@@ -191,7 +231,8 @@ async getKeyword(keyword: string) {
 ```
 
 - 입력마다 API 호출하지 않도록 API 호출 횟수를 줄이는 전략 수립 및 실행
-  useDebounce를 구현하여 delay 시간동안 계속 되는 입력은 요청을 보내지 않고 마지막 입력후에 fetch 요청을 보내도록 구현하였습니다.
+
+  useDebounce를 구현하여 delay 시간동안 계속 되는 입력은 요청을 보내지 않고 마지막 입력후에 debounceValue를 변경하여 fetch요청을 보내도록 구현하였습니다.
 
 ```javascript
 useEffect(() => {
@@ -205,9 +246,9 @@ useEffect(() => {
 }, [debounceValue]);
 ```
 
-### 3. 키보드만으로 추천 검색어들로 이동 가능하도록 구현
+### 3.키보드만으로 추천 검색어들로 이동 가능하도록 구현
 
-- index 값을 state로 만들어서 키보드 이벤트가 발생할때 마다 해당 index를 이동되도록 구현하였습니다.
+- index 값을 state로 만들어서 키보드 이벤트 마다 해당 index를 이동 시켰습니다.
 
 ```javascript
 useEffect(() => {

@@ -33,9 +33,6 @@
       <img src="https://avatars.githubusercontent.com/u/64957267?v=4" width="100px;" alt="용상윤"/>
     </td>
     <td align="center">
-      <img src="https://avatars.githubusercontent.com/u/93130161?v=4" width="100px;" alt="이현지"/>
-    </td>
-    <td align="center">
       <img src="https://avatars.githubusercontent.com/u/80934175?v=4" width="100px;" alt="박채연"/>
     </td>
     <td align="center">
@@ -67,11 +64,6 @@
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/HyunziLee">
-        <div>이현지</div>
-      </a>
-    </td>
-    <td align="center">
       <a href="https://github.com/chaechae66">
         <div>박채연</div>
       </a>
@@ -99,12 +91,11 @@
 
 ### 실행방법
 
-- 해당 레포지 clone
+1. 이 저장소를 클론해주세요. `git clone ...`
 
-```
- npm install // 설치
- npm run start // 실행
-```
+2. 의존성 모듈을 설치해주세요. `npm install`
+
+3. 실행해주세요. `npm start`
 
 ### 프로젝트 소개
 

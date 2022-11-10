@@ -10,3 +10,13 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+
+div {
+  all: unset;
+  box-sizing: border-box;
+}
+
+ul,
+li {
+  all: unset;
+}

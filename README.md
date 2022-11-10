@@ -108,7 +108,6 @@
 
 ### 프로젝트 소개
 
-
 - 질환명 검색시 API 호출 통해 검색어를 추천해주는 페이지입니다.
 
 ### 폴더 구조
@@ -254,4 +253,3 @@ export const useTabIndex = (length: number) => {
   return { tabIndex, initTabIndex, handleKeyTabIndex };
 };
 ```
-

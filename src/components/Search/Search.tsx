@@ -14,7 +14,7 @@ const Search = () => {
     inputAttribute: { value: diseaseName, onChangeInput, isFocus, onFocusInput, onBlurInput },
   } = useInput("");
   const { tabIndex, initTabIndex, handleKeyTabIndex } = useTabIndex(autoCompleteItems.length);
-  const debounceValue = useDebounce(diseaseName, 1000);
+  const debounceValue = useDebounce(diseaseName, 200);
 
   const onBlurInputCustom = () => {
     onBlurInput();

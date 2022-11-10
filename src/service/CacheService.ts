@@ -1,6 +1,6 @@
 import type { SickInfoTypes } from "@/types";
 
-export class Cache {
+export class CacheService {
   private cache;
   constructor() {
     this.cache = new Map<string, SickInfoTypes[]>();

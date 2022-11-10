@@ -1,6 +1,6 @@
+import { CacheService } from "@/service/CacheService";
 import { SickInfoTypes } from "@/types";
 import { AxiosRequestConfig } from "axios";
-import { Cache } from "./Cache";
 import { createInstance } from "./createInstance";
 
 const initialConfig = { timeout: 3000 };
@@ -10,7 +10,7 @@ export class SearchAPI {
   private instance;
   private cache;
 
-  constructor(url: string, cache: Cache) {
+  constructor(url: string, cache: CacheService) {
     this.baseURL = url;
     this.cache = cache;
     this.instance = createInstance({ url, config: initialConfig });

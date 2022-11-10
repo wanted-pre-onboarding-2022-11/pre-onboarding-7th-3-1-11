@@ -6,13 +6,13 @@ type AutoCompleteItemProps = {
   isSelected: boolean;
 };
 const AutoCompleteItem = ({ item, isSelected }: AutoCompleteItemProps) => {
-  const [splitedStrLeft, key, splitedStrRight] = item;
+  const [splitedLeftText, boldText, splitedRightText] = item;
   return (
     <StyledAutoItem isSelected={isSelected}>
       <p>
-        {splitedStrLeft}
-        <b>{key}</b>
-        {splitedStrRight}
+        {splitedLeftText}
+        <b>{boldText}</b>
+        {splitedRightText}
       </p>
     </StyledAutoItem>
   );

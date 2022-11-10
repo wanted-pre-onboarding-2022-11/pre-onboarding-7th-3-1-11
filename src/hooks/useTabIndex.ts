@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-export const useTagIndex = (length: number) => {
+export const useTabIndex = (length: number) => {
   const [tabIndex, setTabIndex] = useState(0);
 
   const initTabIndex = useCallback(() => setTabIndex(0), []);

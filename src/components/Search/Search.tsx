@@ -1,7 +1,7 @@
 import { searchAPI } from "@/App";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useInput } from "@/hooks/useInput";
-import { useTagIndex } from "@/hooks/useTabIndex";
+import { useTabIndex } from "@/hooks/useTabIndex";
 import { SickInfoTypes } from "@/types";
 import React, { useState } from "react";
 import { useEffect } from "react";
@@ -13,7 +13,7 @@ const Search = () => {
   const {
     inputAttribute: { value: diseaseName, onChangeInput, isFocus, onFocusInput, onBlurInput },
   } = useInput("");
-  const { tabIndex, initTabIndex, handleKeyTabIndex } = useTagIndex(autoCompleteItems.length);
+  const { tabIndex, initTabIndex, handleKeyTabIndex } = useTabIndex(autoCompleteItems.length);
   const debounceValue = useDebounce(diseaseName, 1000);
 
   const onBlurInputCustom = () => {

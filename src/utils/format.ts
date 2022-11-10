@@ -1,12 +1,14 @@
 import { SickInfoTypes } from "@/types";
 
-export const boldMaker = ({ key, item }: { key: string; item: string }) => {
-  return item.replace(new RegExp(key, "i"), `<flag>${key}<flag>`);
+const SPLIT_FLAG = "<flag>";
+
+export const boldFlagMaker = ({ key, item }: { key: string; item: string }) => {
+  return item.replace(new RegExp(key, "i"), `${SPLIT_FLAG}${key}${SPLIT_FLAG}`);
 };
 
 export const formatToBold = ({ list, key }: { list: SickInfoTypes[]; key: string }) => {
-  const boldList = list.map((item) => boldMaker({ key, item: item.sickNm }));
+  const boldList = list.map((item) => boldFlagMaker({ key, item: item.sickNm }));
   return boldList.map((boldStr) => {
-    return boldStr.split("<flag>", 3);
+    return boldStr.split(SPLIT_FLAG, 3);
   });
 };

@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import AutoCompletedItem from "./AutocompletedItem";
+
+import AutoCompletedItem from "@/components/AutoCompletedList/AutocompletedItem";
 
 export interface AutoCompletedItem {
   sickCd: string;

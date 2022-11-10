@@ -1,6 +1,5 @@
-import styled from "styled-components";
 import { ChangeEventHandler } from "react";
-
+import styled from "styled-components";
 interface SearchBarProps {
   onChange: ChangeEventHandler<HTMLInputElement>;
 }

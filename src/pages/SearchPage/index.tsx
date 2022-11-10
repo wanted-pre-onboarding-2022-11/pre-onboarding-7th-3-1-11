@@ -1,9 +1,10 @@
+import { ChangeEvent } from "react";
+import styled from "styled-components";
+
+import useSearch from "@/hooks/useSearch";
 import { getAutoCompletedList } from "@/apis";
 import SearchBar from "@/components/SearchBar";
 import AutoCompletedList, { AutoCompletedItem } from "@/components/AutoCompletedList";
-import useSearch from "@/hooks/useSearch";
-import { ChangeEvent } from "react";
-import styled from "styled-components";
 
 const SearchPage = () => {
   const { searchKeyword, saveKeyword, searchResult } =
